@@ -1,0 +1,36 @@
+.buttonBase {
+    border-radius: 0.5rem;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    padding: 0.5rem;
+    cursor: pointer;
+}
+
+.editButton {
+    background-color: #4CAF50;
+    font-size: 0.75rem;
+}
+
+.deleteButton {
+    background-color: #f44336;
+    font-size: 0.75rem;
+}
+
+.submitButton {
+    background-color: #008CBA;
+    font-size: 1rem;
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    height:100%;
+}
+
+.buttonBase:hover {
+    opacity: 0.8;
+}
