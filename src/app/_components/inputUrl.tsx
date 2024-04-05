@@ -5,13 +5,10 @@ import { Button } from "./button";
 
 export const InputUrl = () => {
     const [url, setUrl] = useState("");
-    const [shortURL, setShortURL] = useState("");
 
     const handleClick = async(e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const response = await create(url);
-       // setShortURL(response.shortURL);
-        console.log("URL to be shortened:", url);
+        const response = await create({originalUrl: url});
     }
 
     const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
