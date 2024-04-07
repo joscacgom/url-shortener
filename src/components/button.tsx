@@ -1,11 +1,6 @@
 import React from "react";
 import styles from "./component.module.css";
-
-interface ButtonProps {
-    text: string;
-    handleClick: (e: React.FormEvent<HTMLFormElement>) => Promise<void> | void;
-    type: "submit" | "edit" | "delete" | "signUp" | "login" | "copy";
-}
+import { ButtonProps } from "@/interfaces";
 
 const typeToClassName: Record<ButtonProps['type'], string> = {
     submit: styles.submitButton,

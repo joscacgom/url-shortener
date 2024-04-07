@@ -6,33 +6,24 @@ import { AgGridReact } from 'ag-grid-react';
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-quartz.css";
 import styles from './component.module.css';
-import deleteUrl from '../../actions/deleteShortURL';
+import deleteUrl from '../actions/deleteShortURL';
 import { LoadingSpinner } from './loadingSpinner';
+import { ActionButtonProps, RowData, Url } from '@/interfaces';
+import { Bounce, ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-interface RowData {
-  ShortURL: string;
-  LongURL: string;
-  QRCode?: string;
-  Clicks?: number;
-  Status: string;
-  Date: string;
-  Actions: any;
-  id: string;
-}
-
-interface ActionButtonProps {
-  data: RowData;
-  onDelete: () => void;
-}
 
 const ActionButton = (props: ActionButtonProps) => {
 
   const handleDelete = async () => {
     await deleteUrl(props.data.id);
+    toast.success("URL deleted successfully!");
+
   }
   
   const handleCopy = () => {
     navigator.clipboard.writeText(props.data.ShortURL);
+    toast.info('URL copied to clipboard!');
   }
 
   return (
@@ -65,13 +56,13 @@ const Table = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get("https://url-shortener-func.azurewebsites.net/api/urls");
-      const data = response.data.map((item: any) => ({
+      const data = response.data.map((item: Url) => ({
         ShortURL: "localhost:3000/" + item.shortUrl,
         LongURL: item.originalUrl,
-        QRCode: "📷",
-        Clicks: 3,
-        Status: "Active",
-        Date: new Date().toLocaleDateString(),
+        QRCode: "N/A",
+        Clicks: item.clicks,
+        Status: item.status == 0 ? "Active" : "Inactive",
+        Date: item.createdAt,
         Actions: {data: item},
         id:item.id
       }));
@@ -92,17 +83,32 @@ const Table = () => {
   }
 
   return (
-    <div className="ag-theme-quartz-dark" style={{ height: 525, width: 1405 }}>
-      <AgGridReact
-        pagination={pagination}
-        paginationPageSize={paginationPageSize}
-        paginationPageSizeSelector={paginationPageSizeSelector}
-        columnDefs={colDefs}
-        rowData={rowData}
-        onGridReady={() => setLoading(false)}
-        onModelUpdated={() => setLoading(false)}
-      />
-    </div>
+    <>
+      <div className="ag-theme-quartz-dark" style={{ height: 525, width: 1405 }}>
+        <AgGridReact
+          pagination={pagination}
+          paginationPageSize={paginationPageSize}
+          paginationPageSizeSelector={paginationPageSizeSelector}
+          columnDefs={colDefs}
+          rowData={rowData}
+          onGridReady={() => setLoading(false)}
+          onModelUpdated={() => setLoading(false)}
+        />
+      </div>
+      <ToastContainer position="bottom-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="dark"
+            transition={Bounce}
+        />
+    </>
+
   );
 }
 

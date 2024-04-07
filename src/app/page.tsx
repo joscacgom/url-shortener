@@ -1,9 +1,9 @@
 import styles from "./page.module.css";
-import { InputUrl } from "./_components/inputUrl";
-import Table from "./_components/table";
+import { InputUrl } from "../components/inputUrl";
+import Table from "../components/table";
 import { Suspense } from "react";
-import { Navbar } from "./_components/navbar";
-import { Footer } from "./_components/footer";
+import { Navbar } from "../components/navbar";
+import { Footer } from "../components/footer";
 
 export default function Home() {
   return (
