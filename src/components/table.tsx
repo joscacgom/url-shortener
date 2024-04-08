@@ -1,6 +1,5 @@
-"use client"
-
-import { useState, useEffect } from 'react';
+"use client";
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { AgGridReact } from 'ag-grid-react';
 import "ag-grid-community/styles/ag-grid.css";
@@ -18,7 +17,7 @@ const ActionButton = (props: ActionButtonProps) => {
   const handleDelete = async () => {
     await deleteUrl(props.data.id);
     toast.success("URL deleted successfully!");
-
+    await props.onDelete();
   }
   
   const handleCopy = () => {
@@ -38,21 +37,6 @@ const Table = () => {
   const [rowData, setRowData] = useState<RowData[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
-  const [colDefs, setColDefs] = useState<{ field: keyof RowData, cellRenderer?: any }[]>([
-    { field: "ShortURL" },
-    { field: "LongURL" },
-    { field: "QRCode" },
-    { field: "Clicks"},
-    { field: "Status" },
-    { field: "Date" },
-    { field: "Actions", cellRenderer: ActionButton }
-  ]);
-
-
-  const pagination = true;
-  const paginationPageSize = 50;
-  const paginationPageSizeSelector = [50, 100, 500];
-
   const fetchData = async () => {
     try {
       const response = await axios.get("https://url-shortener-func.azurewebsites.net/api/urls");
@@ -62,7 +46,7 @@ const Table = () => {
         QRCode: "N/A",
         Clicks: item.clicks,
         Status: item.status == 0 ? "Active" : "Inactive",
-        Date: item.createdAt,
+        Date: item.createdAt.split("T")[0] + " " + item.createdAt.split("T")[1].split(".")[0],
         Actions: {data: item},
         id:item.id
       }));
@@ -77,6 +61,9 @@ const Table = () => {
     fetchData();
   }, []);
 
+  const handleDelete = async () => {
+    await fetchData();
+  };
 
   if (loading) {
     return <LoadingSpinner />;
@@ -86,17 +73,23 @@ const Table = () => {
     <>
       <div className="ag-theme-quartz-dark" style={{ height: 525, width: 1405 }}>
         <AgGridReact
-          pagination={pagination}
-          paginationPageSize={paginationPageSize}
-          paginationPageSizeSelector={paginationPageSizeSelector}
-          columnDefs={colDefs}
+          pagination={true}
+          paginationPageSize={50}
+          paginationPageSizeSelector={[50, 100, 500]}
+          columnDefs={[
+            { field: "ShortURL" },
+            { field: "LongURL" },
+            { field: "QRCode" },
+            { field: "Clicks"},
+            { field: "Status" },
+            { field: "Date" },
+            { field: "Actions", cellRenderer: ActionButton, cellRendererParams: { onDelete: handleDelete } }
+          ]}
           rowData={rowData}
-          onGridReady={() => setLoading(false)}
-          onModelUpdated={() => setLoading(false)}
         />
       </div>
       <ToastContainer position="bottom-right"
-            autoClose={5000}
+            autoClose={3000}
             hideProgressBar={false}
             newestOnTop={false}
             closeOnClick
@@ -113,4 +106,3 @@ const Table = () => {
 }
 
 export default Table;
-

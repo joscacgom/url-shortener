@@ -6,16 +6,33 @@ import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styles from "./component.module.css";
 
+const isValidUrl = (url: string) => {
+    const urlRegex = /^(ftp|http|https):\/\/[^ "]+$/;
+    return urlRegex.test(url);
+};
+
 export const InputUrl = () => {
     const [url, setUrl] = useState("");
 
     const handleClick = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (!url) return;
+
+        if (!url){
+            toast.error("URL cannot be empty");
+            return;
+        }
+
+        if (!isValidUrl(url)) {
+            toast.error("Invalid URL");
+            return;
+        }
 
         try {
             const response = await create({ originalUrl: url });
             toast.success("URL created successfully!");
+            setTimeout(() => {
+                window.location.reload();
+            }, 3000);
         } catch (error) {
             console.error("Error creating URL:", error);
             toast.error("Failed to create URL");
@@ -32,7 +49,7 @@ export const InputUrl = () => {
                 <input
                     type="text"
                     className={styles.input}
-                    placeholder="🔗 Enter long URL"
+                    placeholder="🔗 https://www.example.com"
                     id="url"
                     name="url"
                     onChange={handleOnChange}
@@ -40,7 +57,7 @@ export const InputUrl = () => {
                 <Button text="Create" handleClick={handleClick} type="submit" />
             </form>
              <ToastContainer position="bottom-right"
-                autoClose={5000}
+                autoClose={3000}
                 hideProgressBar={false}
                 newestOnTop={false}
                 closeOnClick

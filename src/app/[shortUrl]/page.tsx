@@ -14,5 +14,5 @@ export default async function RedirectionToOriginalUrl({ params }: { params: { s
     };
 
     const redirectUrl = await fetchData();
-    return permanentRedirect("https://"+redirectUrl);
+    return permanentRedirect(redirectUrl);
 }

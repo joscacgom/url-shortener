@@ -1,7 +1,6 @@
 import styles from "./page.module.css";
 import { InputUrl } from "../components/inputUrl";
 import Table from "../components/table";
-import { Suspense } from "react";
 import { Navbar } from "../components/navbar";
 import { Footer } from "../components/footer";
 
@@ -17,9 +16,7 @@ export default function Home() {
           </p>
         </div>
         <InputUrl />
-        <Suspense fallback={<p>Loading</p>}>
-          <Table />
-        </Suspense>
+        <Table />
       </main>
       <Footer />
     </>
