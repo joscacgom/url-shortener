@@ -1,4 +1,5 @@
 "use client"
+import Link from "next/link";
 import { Button } from "./button";
 import styles from "./component.module.css";
 
@@ -6,10 +7,16 @@ export const Navbar = () => {
    
     return (
         <nav className={styles.navbar}>
-            <h1 className={styles.navbarTitle}>Short.link</h1>
+            <Link href={"/"} style={{textDecoration:'none'}}>
+                <h1 className={styles.navbarTitle}>Short.link</h1>
+            </Link>
             <div className={styles.buttonContainer}>
-                <Button text="Login" type="login" handleClick={() => {}}/>
-                <Button text="Sign Up" type="signUp" handleClick={() => {}}/>
+                <Link href={"/auth/login"}>
+                    <Button text="Login" type="login"/>
+                </Link>
+                <Link href={"/auth/sign-up"}>
+                    <Button text="Sign Up" type="signUp"/>
+                </Link>
             </div>
         </nav>
     );

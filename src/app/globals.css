@@ -1,8 +1,8 @@
-body{
-    font-family: 'Roboto', sans-serif;
+body {
     margin: 0;
     padding: 0;
-    background-color: #181E29;
+    background-color: #0B101B;
+    background-image: url('../../public/Swirl.png'), url('../../public/Cubes.png');
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

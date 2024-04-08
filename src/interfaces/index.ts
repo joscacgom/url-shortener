@@ -25,6 +25,6 @@ export interface ActionButtonProps {
 
 export interface ButtonProps {
     text: string;
-    handleClick: (e: React.FormEvent<HTMLFormElement>) => Promise<void> | void;
+    handleClick?: (e: React.FormEvent<HTMLFormElement>) => Promise<void> | void;
     type: "submit" | "edit" | "delete" | "signUp" | "login" | "copy";
 }

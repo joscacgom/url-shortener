@@ -1,20 +1,17 @@
 "use client";
 import create from "@/actions/createShortURL";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Button } from "./button";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styles from "./component.module.css";
-
-const isValidUrl = (url: string) => {
-    const urlRegex = /^(ftp|http|https):\/\/[^ "]+$/;
-    return urlRegex.test(url);
-};
+import { mutate } from "swr";
+import { isValidUrl } from "@/utils";
 
 export const InputUrl = () => {
     const [url, setUrl] = useState("");
 
-    const handleClick = async (e: React.FormEvent<HTMLFormElement>) => {
+ const handleClick = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         if (!url){
@@ -30,9 +27,8 @@ export const InputUrl = () => {
         try {
             const response = await create({ originalUrl: url });
             toast.success("URL created successfully!");
-            setTimeout(() => {
-                window.location.reload();
-            }, 3000);
+            mutate("https://url-shortener-func.azurewebsites.net/api/urls");
+
         } catch (error) {
             console.error("Error creating URL:", error);
             toast.error("Failed to create URL");
@@ -44,7 +40,7 @@ export const InputUrl = () => {
     };
 
     return (
-        <div>
+        <>
             <form onSubmit={handleClick} className={styles.formContainer}>
                 <input
                     type="text"
@@ -68,6 +64,6 @@ export const InputUrl = () => {
                 theme="dark"
                 transition={Bounce}
             />
-        </div>
+        </>
     );
 };

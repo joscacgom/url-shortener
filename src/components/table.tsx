@@ -1,5 +1,4 @@
-"use client";
-import React, { useState, useEffect } from 'react';
+"use client"
 import axios from 'axios';
 import { AgGridReact } from 'ag-grid-react';
 import "ag-grid-community/styles/ag-grid.css";
@@ -10,14 +9,21 @@ import { LoadingSpinner } from './loadingSpinner';
 import { ActionButtonProps, RowData, Url } from '@/interfaces';
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import useSWR, { mutate } from 'swr';
+import { dateParser } from '@/utils';
 
+const fetcher = async (url: string) => {
+ const response = await axios.get(url);
+ return response.data;
+};
 
 const ActionButton = (props: ActionButtonProps) => {
 
   const handleDelete = async () => {
     await deleteUrl(props.data.id);
     toast.success("URL deleted successfully!");
-    await props.onDelete();
+    mutate("https://url-shortener-func.azurewebsites.net/api/urls");
+
   }
   
   const handleCopy = () => {
@@ -34,58 +40,40 @@ const ActionButton = (props: ActionButtonProps) => {
 }
 
 const Table = () => {
-  const [rowData, setRowData] = useState<RowData[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+ const { data: urls, error } = useSWR("https://url-shortener-func.azurewebsites.net/api/urls", fetcher);
 
-  const fetchData = async () => {
-    try {
-      const response = await axios.get("https://url-shortener-func.azurewebsites.net/api/urls");
-      const data = response.data.map((item: Url) => ({
-        ShortURL: "localhost:3000/" + item.shortUrl,
-        LongURL: item.originalUrl,
-        QRCode: "N/A",
-        Clicks: item.clicks,
-        Status: item.status == 0 ? "Active" : "Inactive",
-        Date: item.createdAt.split("T")[0] + " " + item.createdAt.split("T")[1].split(".")[0],
-        Actions: {data: item},
-        id:item.id
-      }));
-      setRowData(data);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
+ if (error) return <div>Failed to load</div>;
+ if (!urls) return <LoadingSpinner />;
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+ const rowData = urls.map((item: Url) => ({
+    ShortURL: "localhost:3000/" + item.shortUrl,
+    LongURL: item.originalUrl,
+    QRCode: "N/A",
+    Clicks: item.clicks,
+    Status: item.status == 0 ? "Active" : "Inactive",
+    Date: dateParser(item.createdAt),
+    Actions: {data: item},
+    id:item.id
+ }));
 
-  const handleDelete = async () => {
-    await fetchData();
-  };
-
-  if (loading) {
-    return <LoadingSpinner />;
-  }
-
-  return (
+ return (
     <>
-      <div className="ag-theme-quartz-dark" style={{ height: 525, width: 1405 }}>
+      <div className="ag-theme-quartz-dark" style={{ height: 525, width: 1104 }}>
         <AgGridReact
           pagination={true}
           paginationPageSize={50}
           paginationPageSizeSelector={[50, 100, 500]}
           columnDefs={[
-            { field: "ShortURL" },
-            { field: "LongURL" },
-            { field: "QRCode" },
-            { field: "Clicks"},
-            { field: "Status" },
-            { field: "Date" },
-            { field: "Actions", cellRenderer: ActionButton, cellRendererParams: { onDelete: handleDelete } }
+            { field: "ShortURL", sortable: true, filter: true, width: 200},
+            { field: "LongURL", sortable: true, filter: true, width: 200},
+            { field: "QRCode", width: 100},
+            { field: "Clicks", sortable: true, width: 100},
+            { field: "Status", sortable: true, width: 100},
+            { field: "Date", sortable: true, width: 200},
+            { field: "Actions", cellRenderer: ActionButton }
           ]}
           rowData={rowData}
+          
         />
       </div>
       <ToastContainer position="bottom-right"
@@ -101,8 +89,7 @@ const Table = () => {
             transition={Bounce}
         />
     </>
-
-  );
+ );
 }
 
 export default Table;
