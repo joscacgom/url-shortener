@@ -1,9 +1,9 @@
 "use client"
 import Link from "next/link";
-import { Button } from "./button";
+import Button from "./Button";
 import styles from "./component.module.css";
 
-export const Navbar = () => {
+const Navbar = () => {
    
     return (
         <nav className={styles.navbar}>
@@ -21,3 +21,5 @@ export const Navbar = () => {
         </nav>
     );
 };
+
+export default Navbar;

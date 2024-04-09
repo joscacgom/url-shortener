@@ -1,8 +1,5 @@
 import styles from "./page.module.css";
-import { InputUrl } from "@/components/inputUrl";
-import Table from "@/components/table";
-import { Navbar } from "@/components/navbar";
-import { Footer } from "@/components/footer";
+import { InputUrl, Navbar, Table, Footer } from "@/components";
 
 export default function Home() {
   return (

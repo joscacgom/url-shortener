@@ -1,29 +1,39 @@
 "use client"
-import axios from 'axios';
 import { AgGridReact } from 'ag-grid-react';
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-quartz.css";
 import styles from './component.module.css';
-import deleteUrl from '../actions/deleteShortURL';
-import { LoadingSpinner } from './loadingSpinner';
-import { ActionButtonProps, RowData, Url } from '@/interfaces';
+import { deleteUrl, update } from '@/actions';
+import LoadingSpinner  from './LoadingSpinner';
+import { ActionButtonProps, Url } from '@/interfaces';
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import useSWR, { mutate } from 'swr';
-import { dateParser } from '@/utils';
+import { dateParser, fetcher } from '@/utils';
+import Image from 'next/image';
+import deleteIcon from '@/assets/delete.svg';
+import lockIcon from '@/assets/lock.svg';
+import unlockIcon from '@/assets/lock-open.svg';
+import copyIcon from '@/assets/copy.svg';
 
-const fetcher = async (url: string) => {
- const response = await axios.get(url);
- return response.data;
-};
+const API_URL = "https://url-shortener-func.azurewebsites.net/api/urls";
 
 const ActionButton = (props: ActionButtonProps) => {
+
+  const stylesByStatus = props.data.Status === "Active" ? styles.active : styles.inactive;
 
   const handleDelete = async () => {
     await deleteUrl(props.data.id);
     toast.success("URL deleted successfully!");
-    mutate("https://url-shortener-func.azurewebsites.net/api/urls");
+    mutate(API_URL);
 
+  }
+
+  const handleUpdate = async () => {
+    const status = props.data.Status === "Active" ? "Inactive" : "Active";
+    await update(props.data.id, status);
+    toast.success("URL updated successfully!");
+    mutate(API_URL);
   }
   
   const handleCopy = () => {
@@ -33,14 +43,31 @@ const ActionButton = (props: ActionButtonProps) => {
 
   return (
     <div className={styles.buttonContainer}>
-        <button className={`${styles.buttonBase} ${styles.deleteButton}`} onClick={handleDelete}>x</button>
-        <button className={`${styles.buttonBase} ${styles.copyButton}`} onClick={handleCopy}>🔗</button>
+
+        <button className={`${styles.buttonBase} ${styles.deleteButton}`} onClick={handleDelete}>
+          <Image src={deleteIcon} alt="delete" width={16} height={16} />
+        </button>
+
+        <button className={`${styles.buttonBase} ${styles.copyButton}`} onClick={handleCopy}>
+          <Image src={copyIcon} alt="copy" width={16} height={16} />
+        </button>
+
+        <button className={`${styles.buttonBase} ${styles.editButton} ${stylesByStatus}`} onClick={handleUpdate}>
+          {
+            props.data.Status === "Active" 
+              ? 
+              <Image src={lockIcon} alt="lock" width={16} height={16} /> 
+              : 
+              <Image src={unlockIcon} alt="unlock" width={16} height={16} />
+          }
+        </button>
+
     </div>
   );
 }
 
 const Table = () => {
- const { data: urls, error } = useSWR("https://url-shortener-func.azurewebsites.net/api/urls", fetcher);
+ const { data: urls, error } = useSWR(API_URL, fetcher);
 
  if (error) return <div>Failed to load</div>;
  if (!urls) return <LoadingSpinner />;

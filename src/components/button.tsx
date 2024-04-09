@@ -11,8 +11,10 @@ const typeToClassName: Record<ButtonProps['type'], string> = {
     copy: styles.copyButton
 };
 
-export const Button = ({ text, handleClick, type = "submit" }: ButtonProps) => {
+const Button = ({ text, handleClick, type = "submit" }: ButtonProps) => {
     return (
         <button className={`${styles.buttonBase} ${typeToClassName[type]}`} onClick={(e) => handleClick}>{text}</button>
     );
 };
+
+export default Button;

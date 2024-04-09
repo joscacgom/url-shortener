@@ -1,14 +1,14 @@
 "use client";
-import create from "@/actions/createShortURL";
 import { useState } from "react";
-import { Button } from "./button";
+import Button from "./Button";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styles from "./component.module.css";
 import { mutate } from "swr";
 import { isValidUrl } from "@/utils";
+import { create } from "@/actions";
 
-export const InputUrl = () => {
+const InputUrl = () => {
     const [url, setUrl] = useState("");
 
  const handleClick = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -67,3 +67,5 @@ export const InputUrl = () => {
         </>
     );
 };
+
+export default InputUrl;

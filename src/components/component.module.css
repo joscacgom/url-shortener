@@ -6,6 +6,11 @@
     text-decoration: none;
     padding: 0.5rem;
     cursor: pointer;
+    transition: box-shadow 0.3s ease;
+}
+
+.buttonBase:hover {
+    box-shadow: 0px 0px 10px 0px currentColor;
 }
 
 .editButton {
@@ -13,13 +18,23 @@
     justify-content: center;
     align-items: center;
     border-radius: 100%;
-    background-color: #4CAF50;
     font-size: 1.2rem;
     opacity: 0.7;
     font-size: 1.2rem;
     height: 2rem;
     width: 2rem;
 }
+
+.active {
+    background-color: #e5c348;
+    box-shadow: 0px 0px 10px rgba(185, 159, 67, 0.5);
+}
+
+.inactive {
+    background-color: #1EB036;
+    box-shadow: 0px 0px 10px rgba(30, 176, 54, 0.5);
+}
+
 
 .deleteButton {
     display: flex;
@@ -30,6 +45,7 @@
     font-size: 1.2rem;
     height: 2rem;
     width: 2rem;
+    box-shadow: 0px 0px 10px rgba(176, 30, 30, 0.5);
 }
 
 .submitButton {
@@ -72,6 +88,7 @@
     font-size: 1rem;
     height: 2rem;
     width: 2rem;
+    box-shadow: 0px 0px 10px rgba(20, 78, 227, 0.5);
 }
 
 .buttonContainer {
@@ -80,10 +97,6 @@
     align-items: center;
     gap: 1rem;
     height: 100%;
-}
-
-.buttonBase:hover {
-    opacity: 0.8;
 }
 
 .formContainer {
@@ -157,7 +170,6 @@
         transform: rotate(360deg);
     }
 }
-
 
 @media screen and (max-width: 768px) {
     .formContainer {

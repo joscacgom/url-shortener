@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./component.module.css";
 import Link from "next/link";
 
-export const Footer = () => {
+const Footer = () => {
    
     return (
         <footer className={styles.footer}>
@@ -10,3 +10,5 @@ export const Footer = () => {
         </footer>
     );
 };
+
+export default Footer;
