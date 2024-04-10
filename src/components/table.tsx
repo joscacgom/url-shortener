@@ -1,20 +1,20 @@
 "use client"
-import { AgGridReact } from 'ag-grid-react';
+import { deleteUrl, update } from '@/actions';
+import copyIcon from '@/assets/copy.svg';
+import deleteIcon from '@/assets/delete.svg';
+import unlockIcon from '@/assets/lock-open.svg';
+import lockIcon from '@/assets/lock.svg';
+import { ActionButtonProps, Url } from '@/interfaces';
+import { dateParser, fetcher } from '@/utils';
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-quartz.css";
-import styles from './component.module.css';
-import { deleteUrl, update } from '@/actions';
-import LoadingSpinner  from './LoadingSpinner';
-import { ActionButtonProps, Url } from '@/interfaces';
+import { AgGridReact } from 'ag-grid-react';
+import Image from 'next/image';
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import useSWR, { mutate } from 'swr';
-import { dateParser, fetcher } from '@/utils';
-import Image from 'next/image';
-import deleteIcon from '@/assets/delete.svg';
-import lockIcon from '@/assets/lock.svg';
-import unlockIcon from '@/assets/lock-open.svg';
-import copyIcon from '@/assets/copy.svg';
+import styles from './component.module.css';
+import LoadingSpinner from './LoadingSpinner';
 
 const API_URL = "https://url-shortener-func.azurewebsites.net/api/urls";
 

@@ -50,7 +50,7 @@ const InputUrl = () => {
                     name="url"
                     onChange={handleOnChange}
                 />
-                <Button text="Create" handleClick={handleClick} type="submit" />
+                <Button text="Create" type="submit" />
             </form>
              <ToastContainer position="bottom-right"
                 autoClose={3000}

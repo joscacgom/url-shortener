@@ -1,3 +1,5 @@
+import { FormEvent } from "react";
+
 export interface RowData {
   ShortURL: string;
   LongURL: string;
@@ -25,6 +27,10 @@ export interface ActionButtonProps {
 
 export interface ButtonProps {
     text: string;
-    handleClick?: (e: React.FormEvent<HTMLFormElement>) => Promise<void> | void;
+    handleClick?: () => void | Promise<void>;
     type: "submit" | "edit" | "delete" | "signUp" | "login" | "copy";
+}
+
+export interface AccountDetailsProps {
+    name: string;
 }

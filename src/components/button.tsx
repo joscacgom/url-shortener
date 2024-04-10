@@ -12,8 +12,16 @@ const typeToClassName: Record<ButtonProps['type'], string> = {
 };
 
 const Button = ({ text, handleClick, type = "submit" }: ButtonProps) => {
+    const onClickHandler = () => {
+        if (handleClick) {
+            handleClick();
+        }
+    };
+
     return (
-        <button className={`${styles.buttonBase} ${typeToClassName[type]}`} onClick={(e) => handleClick}>{text}</button>
+        <button className={`${styles.buttonBase} ${typeToClassName[type]}`} onClick={onClickHandler}>
+            {text}
+        </button>
     );
 };
 

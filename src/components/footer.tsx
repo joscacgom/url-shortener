@@ -6,7 +6,7 @@ const Footer = () => {
    
     return (
         <footer className={styles.footer}>
-            <p><Link href={""}>Register Now</Link> to enjoy full features</p>
+            <p><Link href={"#"}>Register Now</Link> to enjoy full features.</p>
         </footer>
     );
 };
