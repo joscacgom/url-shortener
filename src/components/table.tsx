@@ -4,7 +4,7 @@ import copyIcon from '@/assets/copy.svg';
 import deleteIcon from '@/assets/delete.svg';
 import unlockIcon from '@/assets/lock-open.svg';
 import lockIcon from '@/assets/lock.svg';
-import { ActionButtonProps, Url } from '@/interfaces';
+import { ActionButtonProps, TableProps, Url } from '@/interfaces';
 import { dateParser, fetcher } from '@/utils';
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-quartz.css";
@@ -19,14 +19,12 @@ import LoadingSpinner from './LoadingSpinner';
 const API_URL = "https://url-shortener-func.azurewebsites.net/api/urls";
 
 const ActionButton = (props: ActionButtonProps) => {
-
   const stylesByStatus = props.data.Status === "Active" ? styles.active : styles.inactive;
 
   const handleDelete = async () => {
     await deleteUrl(props.data.id);
     toast.success("URL deleted successfully!");
     mutate(API_URL);
-
   }
 
   const handleUpdate = async () => {
@@ -44,32 +42,37 @@ const ActionButton = (props: ActionButtonProps) => {
   return (
     <div className={styles.buttonContainer}>
 
-        <button className={`${styles.buttonBase} ${styles.deleteButton}`} onClick={handleDelete}>
-          <Image src={deleteIcon} alt="delete" width={16} height={16} />
-        </button>
+      {props.isLogged && (
+        <>
+          <button className={`${styles.buttonBase} ${styles.deleteButton}`} onClick={handleDelete}>
+            <Image src={deleteIcon} alt="delete" width={16} height={16} />
+          </button>
+
+          <button className={`${styles.buttonBase} ${styles.editButton} ${stylesByStatus}`} onClick={handleUpdate}>
+            {
+              props.data.Status === "Active" 
+                ? 
+                <Image src={lockIcon} alt="lock" width={16} height={16} /> 
+                : 
+                <Image src={unlockIcon} alt="unlock" width={16} height={16} />
+            }
+          </button>
+        </>
+      )}
 
         <button className={`${styles.buttonBase} ${styles.copyButton}`} onClick={handleCopy}>
-          <Image src={copyIcon} alt="copy" width={16} height={16} />
-        </button>
-
-        <button className={`${styles.buttonBase} ${styles.editButton} ${stylesByStatus}`} onClick={handleUpdate}>
-          {
-            props.data.Status === "Active" 
-              ? 
-              <Image src={lockIcon} alt="lock" width={16} height={16} /> 
-              : 
-              <Image src={unlockIcon} alt="unlock" width={16} height={16} />
-          }
+                    <Image src={copyIcon} alt="copy" width={16} height={16} />
         </button>
 
     </div>
   );
 }
 
-const Table = () => {
+
+const Table = ({isLogged}: TableProps) => {
  const { data: urls, error } = useSWR(API_URL, fetcher);
 
- if (error) return <div>Failed to load</div>;
+ if (error) return <div className={styles.description}>Failed to load</div>;
  if (!urls) return <LoadingSpinner />;
 
  const rowData = urls.map((item: Url) => ({
@@ -97,7 +100,7 @@ const Table = () => {
             { field: "Clicks", sortable: true, width: 100},
             { field: "Status", sortable: true, width: 100},
             { field: "Date", sortable: true, width: 200},
-            { field: "Actions", cellRenderer: ActionButton }
+            { field: "Actions", cellRenderer: (props: any) => <ActionButton {...props} isLogged={isLogged} /> }
           ]}
           rowData={rowData}
           

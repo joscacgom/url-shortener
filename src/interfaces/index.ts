@@ -20,7 +20,11 @@ export interface Url {
   createdAt: string;
 }
 
-export interface ActionButtonProps {
+export interface TableProps {
+  isLogged: boolean;  
+}
+
+export interface ActionButtonProps extends TableProps {
   data: RowData;
   onDelete: () => void;
 }

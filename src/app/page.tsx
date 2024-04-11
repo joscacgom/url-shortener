@@ -5,7 +5,6 @@ import { MsalProvider } from "@azure/msal-react";
 import { msalConfig } from "@/config/authConfig";
 import { PublicClientApplication } from "@azure/msal-browser";
 import { AuthenticatedTemplate, UnauthenticatedTemplate } from "@azure/msal-react";
-import NotLogged from "@/components/NotLogged";
 
 export const msalInstance = new PublicClientApplication(msalConfig);
 
@@ -23,10 +22,13 @@ export default function Home() {
         <div className={styles.content}>
           <AuthenticatedTemplate>
             <InputUrl />
-            <Table />
+            <Table  isLogged />
           </AuthenticatedTemplate>
           <UnauthenticatedTemplate>
-           <NotLogged />
+          <p className={styles.description}>
+           <span className={styles.bold}>Sign in</span> to shorten your links. This is an example list of shortened URLs.
+          </p>
+           <Table isLogged={false} />
           </UnauthenticatedTemplate>
         </div>
       </main>

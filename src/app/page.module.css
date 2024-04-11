@@ -29,6 +29,12 @@
   color: #C9CED6;
 }
 
+.bold {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #EB568E;
+}
+
 .content {
   display: flex;
   flex-direction: column;
