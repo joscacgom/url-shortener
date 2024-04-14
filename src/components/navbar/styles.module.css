@@ -1,0 +1,40 @@
+.navbar {
+    display: flex;
+    padding: 0 1rem 0 1rem;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbarTitle {
+    font-size: 2rem;
+    font-weight: 600;
+    line-height: 5rem;
+    background-image: linear-gradient(to right, #144EE3, #EB568E, #D15598, #A353AA, #144EE3);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    height: 100%;
+}
+
+@media screen and (max-width: 768px) {
+
+    .navbar {
+        padding: 0 1.5rem 0 1.5rem;
+    }
+
+    .navbarTitle {
+        font-size: 1.5rem;
+    }
+
+    .buttonContainer {
+        padding-right: 1rem;
+        gap: 1rem;
+    }
+}

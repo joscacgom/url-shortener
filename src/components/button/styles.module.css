@@ -1,0 +1,115 @@
+.buttonBase {
+    border-radius: 0.5rem;
+    border: none;
+    color: #C9CED6;
+    text-align: center;
+    text-decoration: none;
+    padding: 0.5rem;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease;
+}
+
+.buttonBase:hover {
+    box-shadow: 0px 0px 10px 0px currentColor;
+}
+
+.editButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    font-size: 1.2rem;
+    opacity: 0.7;
+    font-size: 1.2rem;
+    height: 2rem;
+    width: 2rem;
+}
+
+.active {
+    background-color: #e5c348;
+    box-shadow: 0px 0px 10px rgba(185, 159, 67, 0.5);
+}
+
+.inactive {
+    background-color: #1EB036;
+    box-shadow: 0px 0px 10px rgba(30, 176, 54, 0.5);
+}
+
+
+.deleteButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    background-color: #b01e1e;
+    font-size: 1.2rem;
+    height: 2rem;
+    width: 2rem;
+    box-shadow: 0px 0px 10px rgba(176, 30, 30, 0.5);
+}
+
+.submitButton {
+    position: absolute;
+    background-color: #144EE3;
+    font-size: 1.2rem;
+    font-weight: 600;
+    width: 11.125rem;
+    height: 4rem;
+    border-radius: 2rem;
+    box-shadow: 0px 6px 10px rgba(20, 78, 227, 0.5);
+    right: 2rem;
+}
+
+.loginButton {
+    background-color: #181E29;
+    font-size: 1.2rem;
+    font-weight: 600;
+    width: 8rem;
+    height: 4rem;
+    border-radius: 2rem;
+}
+
+.signupButton {
+    background-color: #144EE3;
+    font-size: 1.2rem;
+    font-weight: 600;
+    width: 11.125rem;
+    height: 4rem;
+    border-radius: 2rem;
+    box-shadow: 0px 6px 10px rgba(20, 78, 227, 0.5);
+}
+
+.copyButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    background-color: #144EE3;
+    font-size: 1rem;
+    height: 2rem;
+    width: 2rem;
+    box-shadow: 0px 0px 10px rgba(20, 78, 227, 0.5);
+}
+
+@media screen and (max-width: 768px) {
+
+    .submitButton {
+        font-size: 1rem;
+        width: 5rem;
+        border-radius: 2rem;
+        right: 3.5rem;
+    }
+
+    .loginButton {
+        font-size: 1rem;
+        width: 5rem;
+        border-radius: 2rem;
+    }
+
+    .signupButton {
+        font-size: 1rem;
+        width: 5rem;
+        border-radius: 2rem;
+    }
+
+}

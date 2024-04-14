@@ -1,0 +1,31 @@
+.formContainer {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 2rem;
+    color: #C9CED6;
+    width: 42rem;
+}
+
+.input {
+    border-radius: 2rem;
+    border: none;
+    padding: 1rem;
+    background-color: #181E29;
+    color: #C9CED6;
+    height: 2rem;
+    font-size: 1rem;
+}
+
+@media screen and (max-width: 768px) {
+    .formContainer {
+        width: 100%;
+    }
+
+    .input {
+        width: 80%;
+        font-size: 0.875rem;
+    }
+
+}

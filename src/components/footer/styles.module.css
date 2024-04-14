@@ -1,0 +1,20 @@
+.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 5rem;
+    background-color: #0B101B;
+    opacity: 0.8;
+    color: #C9CED6;
+    border-top-right-radius: 3rem;
+    border-top-left-radius: 3rem;
+    backdrop-filter: blur(1rem);
+}
+
+@media screen and (max-width: 768px) {
+
+    .footer {
+        height: 3rem;
+    }
+
+}

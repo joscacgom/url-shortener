@@ -1,7 +1,7 @@
-import styles from "./page.module.css";
-import { Navbar, Footer } from "@/components";
+import styles from './page.module.css'
+import { Navbar, Footer } from '@/components'
 
-export default function NotFound() {
+export default function NotFound (): JSX.Element {
   return (
     <>
       <Navbar />
@@ -15,6 +15,6 @@ export default function NotFound() {
       </main>
       <Footer />
     </>
-    
-  );
+
+  )
 }

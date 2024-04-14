@@ -1,18 +1,18 @@
-"use server"
-import axios from "axios";
+'use server'
+import axios from 'axios'
 
 interface Url {
-    originalUrl: string;
+  originalUrl: string
 }
 
-async function create(url: Url) {
-    try{
-        const response = await axios.post("https://url-shortener-func.azurewebsites.net/api/urls", url);
-        return response.data;
-    } catch (error) {
-        console.error("Error creating short URL", error);
-        return url;
-    }
+async function create (url: Url): Promise<any> {
+  try {
+    const response = await axios.post('https://url-shortener-func.azurewebsites.net/api/urls', url)
+    return response.data
+  } catch (error) {
+    console.error('Error creating short URL', error)
+    return url
+  }
 }
 
-export default create;
+export default create

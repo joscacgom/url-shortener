@@ -1,14 +1,14 @@
-"use client";
-import styles from "./page.module.css";
-import { InputUrl, Navbar, Table, Footer } from "@/components";
-import { MsalProvider } from "@azure/msal-react";
-import { msalConfig } from "@/config/authConfig";
-import { PublicClientApplication } from "@azure/msal-browser";
-import { AuthenticatedTemplate, UnauthenticatedTemplate } from "@azure/msal-react";
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+'use client'
+import styles from './page.module.css'
+import { InputUrl, Navbar, Table, Footer } from '@/components'
+import { MsalProvider, AuthenticatedTemplate, UnauthenticatedTemplate } from '@azure/msal-react'
+import { msalConfig } from '@/config/authConfig'
+import { PublicClientApplication } from '@azure/msal-browser'
 
-export const msalInstance = new PublicClientApplication(msalConfig);
+export const msalInstance = new PublicClientApplication(msalConfig)
 
-export default function Home() {
+export default function Home () {
   return (
     <MsalProvider instance={msalInstance}>
       <Navbar />
@@ -22,7 +22,7 @@ export default function Home() {
         <div className={styles.content}>
           <AuthenticatedTemplate>
             <InputUrl />
-            <Table  isLogged />
+            <Table isLogged />
           </AuthenticatedTemplate>
           <UnauthenticatedTemplate>
           <p className={styles.description}>
@@ -34,5 +34,5 @@ export default function Home() {
       </main>
       <Footer />
     </MsalProvider>
-  );
+  )
 }
