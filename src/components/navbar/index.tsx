@@ -22,6 +22,10 @@ const Navbar = (): JSX.Element => {
           setAccountDetails(response.account.name)
           localStorage.setItem('accountDetails', response.account.name)
           instance.setActiveAccount(response.account)
+
+          // userId
+          const userId = response.account.localAccountId
+          localStorage.setItem('userId', userId)
         } else {
           console.error('Invalid response format:', response)
         }
@@ -37,6 +41,7 @@ const Navbar = (): JSX.Element => {
     }).then(() => {
       setAccountDetails('')
       localStorage.removeItem('accountDetails')
+      localStorage.removeItem('userId')
     })
   }
 
