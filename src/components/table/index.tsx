@@ -18,33 +18,37 @@ import 'react-toastify/dist/ReactToastify.css'
 import useSWR, { mutate } from 'swr'
 import styles from './styles.module.css'
 import LoadingSpinner from '../loadingSpinner'
+import { useEffect } from 'react'
 
 const API_URLs = {
   notLogged: 'https://url-shortener-func.azurewebsites.net/api/urls',
-  logged: 'https://url-shortener-func.azurewebsites.net/api/urls/urlsByUserId/'
+  logged: 'https://url-shortener-func.azurewebsites.net/api/urlsByUserId/'
 }
 
 const ActionButton = (props: ActionButtonProps): JSX.Element => {
   const stylesByStatus = props.data.Status === 'Active' ? styles.active : styles.inactive
-  const API_URL = props.isLogged ? API_URLs.logged : API_URLs.notLogged;
 
   const handleDelete = async (): Promise<void> => {
     await deleteUrl(props.data.id)
     toast.success('URL deleted successfully!')
-    mutate(API_URL)
+    mutate("api/url")
   }
 
   const handleUpdate = async (): Promise<void> => {
     const status = props.data.Status === 'Active' ? 'Inactive' : 'Active'
     await update(props.data.id, status)
     toast.success('URL updated successfully!')
-    mutate(API_URL)
+    mutate("api/url")
   }
 
   const handleCopy = (): void => {
     navigator.clipboard.writeText(props.data.ShortURL)
     toast.info('URL copied to clipboard!')
   }
+
+  useEffect(() => {
+    mutate("api/url")
+  }, [localStorage.getItem('userId')])
 
   return (
     <div className={styles.buttonContainer}>
@@ -74,8 +78,7 @@ const ActionButton = (props: ActionButtonProps): JSX.Element => {
 }
 
 const Table = ({ isLogged }: TableProps): JSX.Element => {
-  const { data: urls, error } = useSWR(isLogged ? API_URLs.logged + localStorage.getItem('userId') : API_URLs.notLogged, fetcher)
-
+  const { data: urls, error } = useSWR("api/url", ()=>fetcher(isLogged ? API_URLs.logged + localStorage.getItem('userId') : API_URLs.notLogged))
   if (error) return <div className={styles.description}>Failed to load</div>
   if (!urls) return <LoadingSpinner />
 
