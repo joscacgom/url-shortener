@@ -57,14 +57,9 @@
   .description {
     font-size: 0.875rem;
   }
-
-  .main {
-    padding: 0 1rem 0 1rem;
-  }
-
   .content {
     height:45rem;
-    width: 80%;
+    width: 100%;
   }
 
 }

@@ -95,7 +95,7 @@ const Table = ({ isLogged }: TableProps): JSX.Element => {
 
   return (
     <>
-      <div className="ag-theme-quartz-dark" style={{ height: 525, width: 1104 }}>
+      <div className={`${styles.tableContainer} ag-theme-quartz-dark`}>
         <AgGridReact
           pagination={true}
           paginationPageSize={50}
