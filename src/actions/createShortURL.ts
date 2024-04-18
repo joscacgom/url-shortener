@@ -3,7 +3,7 @@ import axios from 'axios'
 
 interface Url {
   originalUrl: string
-  userId: string
+  userId: string | null
 }
 
 async function create (url: Url): Promise<any> {
