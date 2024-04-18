@@ -20,8 +20,9 @@
 }
 
 @media screen and (max-width: 768px) {
-
+  
    .AccountDetailsContainer {
      display: none;
    }
+
 }

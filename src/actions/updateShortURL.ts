@@ -1,5 +1,4 @@
 'use server'
-
 import axios from 'axios'
 
 async function update (id: string, status: string): Promise<any> {

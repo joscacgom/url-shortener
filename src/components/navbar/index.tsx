@@ -8,6 +8,7 @@ import { useMsal, AuthenticatedTemplate, UnauthenticatedTemplate } from '@azure/
 import { useState } from 'react'
 import { authScopes } from '@/config/authConfig'
 import AccountDetails from '../accountDetails'
+import { mutate } from 'swr'
 
 const Navbar = (): JSX.Element => {
   const { instance } = useMsal()
@@ -22,6 +23,10 @@ const Navbar = (): JSX.Element => {
           setAccountDetails(response.account.name)
           localStorage.setItem('accountDetails', response.account.name)
           instance.setActiveAccount(response.account)
+
+          const userId = response.account.localAccountId
+          localStorage.setItem('userId', userId)
+          
         } else {
           console.error('Invalid response format:', response)
         }
@@ -37,6 +42,7 @@ const Navbar = (): JSX.Element => {
     }).then(() => {
       setAccountDetails('')
       localStorage.removeItem('accountDetails')
+      localStorage.removeItem('userId')
     })
   }
 
