@@ -12,13 +12,13 @@ import AccountDetails from '../accountDetails'
 const Navbar = (): JSX.Element => {
   const { instance } = useMsal()
   const [accountDetails, setAccountDetails] = useState(() => {
-    return localStorage.getItem('accountDetails') ?? ''
+    return typeof window !== 'undefined' ? localStorage.getItem('accountDetails') : ''
   })
 
   const handleLogin = (): void => {
     instance.loginPopup(authScopes)
       .then(response => {
-        if (response && response.account?.name) {
+        if (response && response.account?.name && typeof window !== 'undefined') {
           setAccountDetails(response.account.name)
           localStorage.setItem('accountDetails', response.account.name)
           instance.setActiveAccount(response.account)
@@ -39,8 +39,10 @@ const Navbar = (): JSX.Element => {
       console.error(e)
     }).then(() => {
       setAccountDetails('')
-      localStorage.removeItem('accountDetails')
-      localStorage.removeItem('userId')
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('accountDetails')
+        localStorage.removeItem('userId')
+      }
     })
   }
 

@@ -83,7 +83,7 @@ const Table = ({ isLogged }: TableProps): JSX.Element => {
   if (!urls) return <LoadingSpinner />
 
   const rowData = urls.map((item: Url) => ({
-    ShortURL: 'localhost:3000/' + item.shortUrl,
+    ShortURL: 'https://shortlinkapp.azurewebsites.net/' + item.shortUrl,
     LongURL: item.originalUrl,
     QRCode: 'N/A',
     Clicks: item.clicks,
