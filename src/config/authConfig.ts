@@ -55,7 +55,6 @@ export const msalConfig = {
     storeAuthStateInCookie: false // Set this to "true" if you are having issues on IE11 or Edge
   },
 
-  
   system: {
     loggerOptions: {
       loggerCallback: (level: any, message: any, containsPii: any) => {
