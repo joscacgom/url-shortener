@@ -34,5 +34,5 @@ export interface ButtonProps {
 }
 
 export interface AccountDetailsProps {
-  name: string
+  name: string | null
 }

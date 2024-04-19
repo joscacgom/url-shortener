@@ -28,7 +28,7 @@ const InputUrl = (): JSX.Element => {
     }
 
     try {
-      await create({ originalUrl: url, userId: localStorage.getItem('userId') })
+      await create({ originalUrl: url, userId: typeof window !== 'undefined' ? localStorage.getItem('userId') : '' })
       toast.success('URL created successfully!')
       mutate('api/url')
       // mutate('https://url-shortener-func.azurewebsites.net/api/urls')
