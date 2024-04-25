@@ -23,7 +23,7 @@ const InputUrl = (): JSX.Element => {
     }
 
     if (!isValidUrl(url)) {
-      toast.error('Invalid URL')
+      toast.error('Must start with https://www.')
       return
     }
 
@@ -31,7 +31,6 @@ const InputUrl = (): JSX.Element => {
       await create({ originalUrl: url, userId: typeof window !== 'undefined' ? localStorage.getItem('userId') : '' })
       toast.success('URL created successfully!')
       mutate('api/url')
-      // mutate('https://url-shortener-func.azurewebsites.net/api/urls')
     } catch (error) {
       console.error('Error creating URL:', error)
       toast.error('Failed to create URL')

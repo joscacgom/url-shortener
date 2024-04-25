@@ -45,8 +45,8 @@ export const msalConfig = {
     clientId, // This is the ONLY mandatory field that you need to supply.
     authority: b2cPolicies.authorities.signUpSignIn.authority, // Defaults to "https://login.microsoftonline.com/common"
     knownAuthorities: [b2cPolicies.authorityDomain], // Mark your B2C tenant's domain as trusted.
-    redirectUri: 'https://shortlinkapp.azurewebsites.net', // You must register this URI on Azure Portal/App Registration. Defaults to window.location.origin
-    postLogoutRedirectUri: 'https://shortlinkapp.azurewebsites.net/logout', // Indicates the page to navigate after logout.
+    redirectUri: 'http://localhost:3000', // You must register this URI on Azure Portal/App Registration. Defaults to window.location.origin
+    postLogoutRedirectUri: 'https://localhost:3000', // Indicates the page to navigate after logout.
     navigateToLoginRequestUrl: false, // If "true", will navigate back to the original request location before processing the auth code response.
     authorityMetadata: b2cPolicies.authorityMetadata
   },
