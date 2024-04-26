@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
 'use client'
 import styles from './page.module.css'
 import { InputUrl, Navbar, Table, Footer } from '@/components'

@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-misused-promises */
-/* eslint-disable @typescript-eslint/no-floating-promises */
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import { deleteUrl, update } from '@/actions'
 import copyIcon from '@/assets/copy.svg'
 import deleteIcon from '@/assets/delete.svg'

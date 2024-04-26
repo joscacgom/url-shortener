@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-floating-promises */
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import React from 'react'
 import styles from './styles.module.css'
 import { type ButtonProps } from '@/interfaces'

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 'use client'
 import { type TableProps, type Url } from '@/interfaces'
 import { dateParser, fetcher } from '@/utils'

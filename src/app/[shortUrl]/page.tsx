@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
-/* eslint-disable @typescript-eslint/no-confusing-void-expression */
 import axios from 'axios'
 import { permanentRedirect } from 'next/navigation'
 
